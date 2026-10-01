@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .bg-orange {
+            background-color: orange !important;
+        }
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .note-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+
+
+<div th:if="${patient == null}">
+    <div class="d-flex justify-content-end align-items-center mb-3">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-outline-danger">Déconnexion</button>
+        </form>
+    </div>
+    <h2>Recherche d'un patient</h2>
+
+    <form action="/patients/search" method="post">
+        <label>Prénom :</label>
+        <input type="text" name="prenom" required>
+
+        <label>Nom :</label>
+        <input type="text" name="nom" required>
+
+        <label>Date de naissance :</label>
+        <input type="date" name="dateNaissance" required>
+
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <hr>
+    <h2>Créer un nouveau patient</h2>
+
+    <form action="/patients/create" method="post">
+
+        <label>Prénom :</label>
+        <input type="text" name="prenom" required>
+
+        <label>Nom :</label>
+        <input type="text" name="nom" required>
+
+        <label>Date de naissance :</label>
+        <input type="date" name="dateNaissance" required>
+
+        <label>Genre :</label>
+        <select name="genre" required>
+            <option value="">-- Choisir --</option>
+            <option value="F">F</option>
+            <option value="M">M</option>
+        </select>
+
+        <label>Adresse :</label>
+        <input type="text" name="adresse">
+
+        <label>Téléphone :</label>
+        <input type="tel" name="telephone"
+               pattern="\d{3}-\d{3}-\d{4}"
+               title="Format attendu : 100-222-3333"
+               placeholder="100-222-3333">
+
+        <button type="submit">Créer le patient</button>
+    </form>
+
+    <hr>
+
+</div>
+
+<div th:if="${patient != null}">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/patients" class="btn btn-secondary">Retour</a>
+    </div>
+    <h2>Modifier le patient</h2>
+
+    <form th:action="@{'/patients/update/' + ${patient.id}}" method="post">
+
+        <label>Prénom :</label>
+        <input type="text" name="prenom" th:value="${patient.prenom}" required>
+
+        <label>Nom :</label>
+        <input type="text" name="nom" th:value="${patient.nom}" required>
+
+        <label>Date de naissance :</label>
+        <input type="date" name="dateNaissance" th:value="${patient.dateNaissance}" required>
+
+        <label>Genre :</label>
+        <select name="genre" required>
+            <option value="F" th:selected="${patient.genre == 'F'}">F</option>
+            <option value="M" th:selected="${patient.genre == 'M'}">M</option>
+        </select>
+
+        <label>Adresse :</label>
+        <input type="text" name="adresse" th:value="${patient.adresse}">
+
+        <label>Téléphone :</label>
+        <input type="tel" name="telephone" th:value="${patient.telephone}"
+               pattern="\d{3}-\d{3}-\d{4}"
+               title="Format attendu : 100-222-3333"
+               placeholder="100-222-3333">
+
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+    <hr>
+    <div th:if="${risk != null}" class="mb-3">
+    <span
+            th:classappend="${risk.riskLevel == 'NONE'} ? 'bg-success' : (${risk.riskLevel == 'BORDERLINE'} ? 'bg-warning' : (${risk.riskLevel == 'IN DANGER'} ? 'bg-orange' : (${risk.riskLevel == 'EARLY ONSET'} ? 'bg-danger' : 'bg-secondary')))"
+            class="p-2 rounded text-dark fw-bold d-inline-block">
+        Niveau de risque : <span th:text="${risk.riskLevel}"></span>
+    </span>
+    </div>
+
+
+    <h2>Ajouter une note</h2>
+
+    <form th:action="@{'/patients/add-note/' + ${patient.id}}" method="post">
+        <textarea name="content" rows="4" cols="50" required></textarea>
+        <br>
+        <button type="submit">Ajouter la note</button>
+    </form>
+
+    <hr>
+
+    <h2>Notes du patient</h2>
+
+    <div th:if="${notes != null}">
+        <ul class="list-unstyled">
+            <li th:each="note : ${notes}" class="mb-3 border-bottom pb-2">
+
+                <div class="d-flex justify-content-between align-items-center note-actions">
+                    <strong th:text="${note.dateAffichage}"></strong>
+                    <div class="d-flex gap-2">
+                        <button type="button" title="Modifier"
+                                class="btn btn-sm btn-link text-primary"
+                                th:attr="data-bs-toggle='modal', data-bs-target='#editModal-' + ${note.id}">
+                            ✏️
+                        </button>
+                        <button type="button" title="Supprimer"
+                                class="btn btn-sm btn-link text-danger"
+                                th:attr="data-bs-toggle='modal', data-bs-target='#deleteModal-' + ${note.id}">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+
+                <pre th:text="${note.content}"></pre>
+
+                <!-- Modal Modifier -->
+                <div class="modal fade" th:id="'editModal-' + ${note.id}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form th:action="@{'/patients/update-note/' + ${note.id}}" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modifier la note</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="patientId" th:value="${patient.id}">
+                                    <textarea name="content" rows="4" class="form-control" required
+                                              th:text="${note.content}"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Confirmation Suppression -->
+                <div class="modal fade" th:id="'deleteModal-' + ${note.id}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form th:action="@{'/patients/delete-note/' + ${note.id}}" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmer la suppression</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="patientId" th:value="${patient.id}">
+                                    <p>Voulez-vous vraiment supprimer cette note ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${notes == null || notes.isEmpty()}">
+        <p>Aucune note disponible pour ce patient.</p>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

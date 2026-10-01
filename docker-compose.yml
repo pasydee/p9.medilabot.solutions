@@ -1,0 +1,196 @@
+version: '3.8'
+
+services:
+
+  # ============================
+  # BASES DE DONNÉES
+  # ============================
+
+  mysql-patient:
+    image: mysql:8.0
+    container_name: mysql-patient
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: medilabo_patient
+    volumes:
+      - mysql_patient_data:/var/lib/mysql
+      - ./ressource/patient.sql:/docker-entrypoint-initdb.d/patient.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - medilabo-net
+
+  mysql-front:
+    image: mysql:8.0
+    container_name: mysql-front
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: medilabo_front
+    volumes:
+      - mysql_front_data:/var/lib/mysql
+      - ./ressource/front.sql:/docker-entrypoint-initdb.d/front.sql
+    ports:
+      - "3308:3306"
+    networks:
+      - medilabo-net
+
+  mongodb-notes:
+    image: mongo:7
+    container_name: mongodb-notes
+    volumes:
+      - mongo_notes_data:/data/db
+      - ./ressource/notes.js:/docker-entrypoint-initdb.d/notes.js
+    ports:
+      - "27018:27017"
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # DISCOVERY (EUREKA)
+  # ============================
+
+  discovery:
+    build: ./discovery
+    container_name: discovery
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: discovery
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8761:8761"
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # PATIENT-SERVICE
+  # ============================
+
+  patient-service:
+    build: ./patient
+    container_name: patient-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-patient:3306/medilabo_patient
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET: 4fyMthK7DQNb6dOAM5h4vXWAUBnVIy4ilgf+EdHT4Jk=
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql-patient
+      - discovery
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # NOTES-SERVICE
+  # ============================
+
+  notes-service:
+    build: ./notes
+    container_name: notes-service
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb-notes:27017/notes
+      JWT_SECRET: 4fyMthK7DQNb6dOAM5h4vXWAUBnVIy4ilgf+EdHT4Jk=
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongodb-notes
+      - discovery
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # RISK-SERVICE
+  # ============================
+
+  risk-service:
+    build: ./risk-service
+    container_name: risk-service
+    environment:
+      PATIENT_SERVICE_URL: http://gateway-service:8080
+      NOTES_SERVICE_URL: http://gateway-service:8080
+      JWT_SECRET: 4fyMthK7DQNb6dOAM5h4vXWAUBnVIy4ilgf+EdHT4Jk=
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8083:8083"
+    depends_on:
+      - patient-service
+      - notes-service
+      - discovery
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # FRONT-SERVICE
+  # ============================
+
+  front-service:
+    build: ./front
+    container_name: front-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-front:3306/medilabo_front
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+      PATIENT_SERVICE_URL: http://gateway-service:8080
+      NOTES_SERVICE_URL: http://gateway-service:8080
+      RISK_SERVICE_URL: http://gateway-service:8080
+
+      JWT_SECRET: 4fyMthK7DQNb6dOAM5h4vXWAUBnVIy4ilgf+EdHT4Jk=
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mysql-front
+      - patient-service
+      - notes-service
+      - risk-service
+      - discovery
+    networks:
+      - medilabo-net
+
+
+  # ============================
+  # GATEWAY-SERVICE
+  # ============================
+
+  gateway-service:
+    build: ./gateway
+    container_name: gateway-service
+    environment:
+      PATIENT_URL: http://patient-service:8081
+      NOTES_URL: http://notes-service:8082
+      RISK_URL: http://risk-service:8083
+      FRONT_URL: http://front-service:8084
+
+      JWT_SECRET: 4fyMthK7DQNb6dOAM5h4vXWAUBnVIy4ilgf+EdHT4Jk=
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - front-service
+      - patient-service
+      - notes-service
+      - risk-service
+      - discovery
+    networks:
+      - medilabo-net
+
+
+# ============================
+# VOLUMES & NETWORK
+# ============================
+
+volumes:
+  mysql_patient_data:
+  mysql_front_data:
+  mongo_notes_data:
+
+networks:
+  medilabo-net:

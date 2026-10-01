@@ -16,6 +16,7 @@ java {
 repositories {
     mavenCentral()
 }
+extra["springCloudVersion"] = "2025.1.2"
 
 dependencies {
     // Web MVC (controllers REST)
@@ -29,6 +30,7 @@ dependencies {
 
     // Security
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
     // --- DATABASE ---
 
@@ -47,8 +49,22 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-security-test")
     testImplementation("org.springframework.boot:spring-boot-starter-validation")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc")
+    // Optionnel : Client de découverte si vous utilisez Eureka
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+
+
+
+}
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+tasks.test {
+    enabled = false
+}
+

@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: front
+              uri: http://front-service:8084
+              predicates:
+                - Path=/front/**
+            - id: patient-service
+              uri: http://patient-service:8081
+              predicates:
+                - Path=/patients/**
+            - id: notes-service
+              uri: http://notes-service:8082
+              predicates:
+                - Path=/notes/**
+            - id: risk-service
+              uri: http://risk-service:8083
+              predicates:
+                - Path=/risk/**
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG

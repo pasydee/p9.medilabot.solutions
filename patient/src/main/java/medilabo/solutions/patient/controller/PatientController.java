@@ -55,4 +55,20 @@ public class PatientController {
         return service.getAllPatients();
 
     }
+    @GetMapping("/search")
+    public ResponseEntity<Patient> searchPatient(
+            @RequestParam String prenom,
+            @RequestParam String nom,
+            @RequestParam String dateNaissance
+    ) {
+        Patient patient = service.searchPatient(prenom, nom, dateNaissance);
+
+        if (patient == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(patient);
+    }
+
+
 }

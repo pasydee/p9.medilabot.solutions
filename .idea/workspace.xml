@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="90841be9-b3b1-488c-9954-4f98fd87240e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/P9-gradle.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discovery/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/client/NotesClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/client/PatientClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/client/RiskClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/AdminAccountInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/RoleBasedAuthenticationSuccessHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/controller/AdminUserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/model/AppUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/model/Note.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/model/RiskResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/resources/templates/admin/create-user.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/resources/templates/patient-edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/resources/templates/patients.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/controller/NoteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/dto/NoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/model/Note.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/repository/NoteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/src/main/java/medilabo/solutions/notes/service/NoteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patient/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/client/NotesClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/client/PatientClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/config/FeignClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/controller/RiskController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/model/Note.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/model/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/model/RiskLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/model/RiskResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/main/java/medilabo/solutions/risk_service/services/RiskService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/risk-service/src/test/resources/application-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/front/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/FrontApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/FrontApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/config/UserConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/controller/PatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/model/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/medilabo/solutions/front/service/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/resources/templates/patient.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/test/java/medilabo/solutions/front/FrontApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/medilabo/solutions/gateway/config/GatewayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/medilabo/solutions/gateway/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/medilabo/solutions/gateway/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/patient/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/controller/PatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/repository/PatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/repository/PatientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/main/java/medilabo/solutions/patient/service/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patient/src/test/java/medilabo/solutions/patient/PatientApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/patient/src/test/java/medilabo/solutions/patient/PatientApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "pasydee"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/pasydee/p9.medilabot.solutions",
+    "accountId": "ef104249-a2b7-4d9c-834b-80f71f353a45"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="3Jm7j7Wh8SizwxxFjqw6Dfcxowx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Pasydee/Documents/Open classeroom/P9-gradle"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90841be9-b3b1-488c-9954-4f98fd87240e" name="Changes" comment="" />
+      <created>1790254521866</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1790254521866</updated>
+    </task>
+    <servers />
+  </component>
+</project>

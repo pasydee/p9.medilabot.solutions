@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class Patient {
     private Long id;
-    private String firstname;
-    private String lastname;
-    private String birthdate;
-    private String gender;
-    private String address;
-    private String phone;
+    private String prenom;
+    private String nom;
+    private String dateNaissance;
+    private String genre;
+    private String adresse;
+    private String telephone;
 }

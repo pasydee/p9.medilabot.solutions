@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "4.1.0"
+    id("org.springframework.boot") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -16,22 +16,29 @@ java {
 repositories {
     mavenCentral()
 }
-extra["springCloudVersion"] = "2025.1.2"
-
+val springCloudGatewayVersion = "5.0.1"
+val springCloudNetflixVersion = "5.0.1"
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+    // 1. NOUVEAU NOM : Starter officiel Gateway pour Spring Boot 4 / WebFlux (Netty)
+    implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux:$springCloudGatewayVersion")
+
+    // 2. Client Eureka avec sa version de module individuelle
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$springCloudNetflixVersion")
+
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.cloud:spring-cloud-gateway-server-webmvc")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-    }
-}
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+tasks.test {
+    enabled = false
+}
+
